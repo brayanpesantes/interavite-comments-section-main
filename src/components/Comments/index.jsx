@@ -12,6 +12,7 @@ function Comments({ comment }) {
   const [isEdit, setIsEdit] = useState(false)
   const [text, seText] = useState(comment.content)
   const { currentUser, openModal } = useContextComment()
+  const [score, setScore] = useState(comment.score)
 
   useScroll()
 
@@ -72,12 +73,13 @@ function Comments({ comment }) {
               color={"purple.100"}
               _hover={{ color: "purple.500" }}
               _focus={{ outline: "none" }}
+              onClick={() => setScore(score => score + 1)}
             />
             <Text
               color={"purple.600"}
               fontWeight={"bold"}
               fontSize="xl">
-              {comment.score}
+              {score}
             </Text>
             <IconButton
               aria-label='plus'
@@ -86,7 +88,8 @@ function Comments({ comment }) {
               color={"purple.100"}
               icon={<FaMinus />}
               _hover={{ color: "purple.500" }}
-              _focus={{ outline: "none" }} />
+              _focus={{ outline: "none" }}
+              onClick={() => setScore(score => score === 0 ? 0 : score - 1)} />
           </HStack>
           <Stack w={"full"} gap={[8, 5]} >
             <HStack
@@ -107,8 +110,9 @@ function Comments({ comment }) {
                   comment?.user?.username === currentUser?.username ?
                     <HStack
                       pos={{ base: 'absolute', md: 'relative' }}
-                      right={{ base: '0', md: '0' }}
-                      bottom={{ base: 9, md: 0 }}
+                      right={{ base: 5, md: '0' }}
+                      bottom={{ base: 7, md: 0 }}
+                      gap={2}
                     >
                       <Button
                         variant={"ghost"}
@@ -117,11 +121,13 @@ function Comments({ comment }) {
                         _focus={{ outline: "none" }}
                         _hover={{ opacity: 0.5 }}
                         onClick={() => openModal(true, comment.id)}
+                        p={0}
                       >
                         Delete
                       </Button>
                       <Button
                         variant={"ghost"}
+                        p={0}
                         leftIcon={<FaEdit />}
                         colorScheme="blue"
                         _focus={{ outline: "none" }}
