@@ -18,7 +18,11 @@ function AddComment() {
   }
   return (
     <CardComment>
-      <HStack padding={5} alignItems="self-start" gap={2.5} >
+      <HStack
+        padding={5}
+        alignItems="self-start" gap={2.5}
+        flexDir={['column-reverse', 'row']}
+      >
         <Avatar size="md" name="John Doe" src={currentUser?.image?.png} />
         <Textarea
           value={newComment}
@@ -29,6 +33,8 @@ function AddComment() {
           bg={'blue.600'}
           color={"white"}
           _hover={{ opacity: 0.5 }}
+          position={['absolute', 'relative']}
+          right={[10, 0]}
         >
           SEND
         </Button>

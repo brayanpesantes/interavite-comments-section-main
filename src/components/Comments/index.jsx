@@ -88,11 +88,11 @@ function Comments({ comment }) {
               _hover={{ color: "purple.500" }}
               _focus={{ outline: "none" }} />
           </HStack>
-          <Stack w={"full"} gap={5} >
+          <Stack w={"full"} gap={[8, 5]} >
             <HStack
               justifyContent={"space-between"}
               gap={8} >
-              <HStack >
+              <HStack w="full">
                 <Avatar
                   size='md'
                   name='Dan Abrams'
