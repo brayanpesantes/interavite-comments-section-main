@@ -73,7 +73,7 @@ export const ProviderComments = ({ children }) => {
         if (newComments.length === 0) {
 
             newComments = comments.map(item => {
-                console.log(item);
+
                 if (item.replies.length > 0) {
                     const newReplies = item.replies.filter(reply => reply.id !== idDelete)
                     return { ...item, replies: newReplies }
