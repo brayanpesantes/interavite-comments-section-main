@@ -20,6 +20,7 @@ export const ProviderComments = ({ children }) => {
     }, [commentsInitial, currentUserInitial])
 
     const addComment = ({ comment }) => {
+
         const newComment = {
             id: uuid4(),
             content: comment,
@@ -31,6 +32,7 @@ export const ProviderComments = ({ children }) => {
         setComments([...comments, newComment])
     }
     const addCommentReply = ({ comment, text }) => {
+
         const dataReply =
         {
             id: uuid4(),
@@ -41,8 +43,19 @@ export const ProviderComments = ({ children }) => {
             user: currentUser
         }
 
+
+
+
         const newCommentsAndReplies =
-            comments.map(item => item.id == comment.id ? { ...item, replies: [...item.replies, dataReply] } : item)
+            comments.map(item => {
+                if (item.id === comment.id) {
+                    item.replies = [...item.replies, dataReply]
+                } else if (comment.replyingTo) {
+                    item.replies = [...item.replies, dataReply]
+                }
+                return item
+            })
+
         setComments(newCommentsAndReplies)
     }
     const openModal = (isOpen, id) => {
@@ -60,11 +73,14 @@ export const ProviderComments = ({ children }) => {
         if (newComments.length === 0) {
 
             newComments = comments.map(item => {
+                console.log(item);
                 if (item.replies.length > 0) {
                     const newReplies = item.replies.filter(reply => reply.id !== idDelete)
                     return { ...item, replies: newReplies }
                 }
+
                 return item
+
             })
             setComments(newComments)
         }

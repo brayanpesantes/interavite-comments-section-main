@@ -14,11 +14,11 @@ function ListReply({ replies }) {
         background: "gray.300",
         position: "absolute",
         top: "0",
-        left: "2.5rem",
+        left: [1, 12],
 
       }}
     >
-      <VStack w={"90%"} >
+      <VStack w={{ base: "95%", md: "90%" }} >
         {
           replies.map(reply => (
             <Comments comment={reply} key={reply.id} />
@@ -26,7 +26,7 @@ function ListReply({ replies }) {
         }
 
       </VStack>
-    </VStack>
+    </VStack >
   )
 }
 
