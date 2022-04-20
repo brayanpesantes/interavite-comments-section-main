@@ -1,23 +1,26 @@
 import { Avatar, Button, HStack, Textarea } from '@chakra-ui/react'
-import React from 'react'
+import React, { useState } from 'react'
 import CardComment from '../CardComment'
 
-function UpdateComment() {
+function UpdateComment({ text, setIsEdit, id, updateReply }) {
+
+  const [textEdit, setTextEdit] = useState(text)
+
   return (
     <CardComment>
-      <HStack padding={5} alignItems="self-start" gap={2.5} >
-        <Avatar size="md" name="John Doe" />
+      <HStack padding={1} alignItems="self-start" gap={2.5} >
         <Textarea
-          placeholder='Add a Comment...'></Textarea>
+          placeholder='Add a Comment...' value={textEdit} onChange={(e) => setTextEdit(e.target.value)}>{text}</Textarea>
         <Button
           bg={'blue.600'}
           color={"white"}
           _hover={{ opacity: 0.5 }}
+          onClick={() => updateReply(id, textEdit)}
         >
-          SEND
+          UPDATE
         </Button>
       </HStack>
-    </CardComment>
+    </CardComment >
   )
 }
 

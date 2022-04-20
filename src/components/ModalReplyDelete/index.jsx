@@ -2,7 +2,7 @@ import { Box, Button, Flex, Heading, HStack, Text } from "@chakra-ui/react"
 import { useContextComment } from '../../hooks/useContextComment'
 
 function ModalReplyDelete() {
-  const { closeModal } = useContextComment()
+  const { closeModal, deleteCommentOrReply } = useContextComment()
 
   return (
     <Box B pos={"absolute"}
@@ -51,6 +51,7 @@ function ModalReplyDelete() {
               w="50%"
               textTransform={"uppercase"}
               _hover={{ bg: "red.400" }}
+              onClick={deleteCommentOrReply}
             >
               Yes, Delete
             </Button>

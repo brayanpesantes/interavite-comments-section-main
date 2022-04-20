@@ -10,6 +10,7 @@ export const useContextComment = () => {
         openModal,
         closeModal,
         isOpenModal,
+        deleteCommentOrReply
 
     } = useContext(ContextComment)
 
@@ -21,6 +22,7 @@ export const useContextComment = () => {
         openModal,
         closeModal,
         isOpenModal,
+        deleteCommentOrReply
 
     }
 }

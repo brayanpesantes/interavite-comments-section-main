@@ -4,18 +4,20 @@ import { FaPlus, FaReply, FaMinus, FaTrash, FaEdit } from 'react-icons/fa'
 import { useContextComment } from '../../hooks/useContextComment'
 import CardComment from "../CardComment"
 import AddReply from "../AddReply"
+import UpdateComment from '../UpdateComment'
 import { useScroll } from '../../hooks/useScroll'
 function Comments({ comment }) {
 
   const [isReplay, setIsReplay] = useState(false)
   const [isEdit, setIsEdit] = useState(false)
-  const [text, seText] = useState("")
+  const [text, seText] = useState(comment.content)
   const { currentUser, openModal } = useContextComment()
 
   useScroll()
 
-  const updateReply = (id) => {
-    if (comment?.replies?.length > 0) {
+  const updateReply = (id, text) => {
+    console.log(id);
+    if (comment?.replies?.length < 0) {
       return;
     }
     else if (comment.id === id) {
@@ -54,13 +56,13 @@ function Comments({ comment }) {
           position={{ base: 'relative' }}
           gap={5}
         >
-          <VStack
+          <HStack
             bg={"gray.100"}
             borderRadius={10}
             h={{ base: "3rem", md: "7rem" }}
             w={{ base: "auto", md: "3rem" }}
             flexDirection={{ base: 'row', md: "column" }}
-            alignItems={{ base: 'baseline', md: "center" }}
+            alignItems={"center"}
           >
             <IconButton
               aria-label='plus'
@@ -84,11 +86,8 @@ function Comments({ comment }) {
               color={"purple.100"}
               icon={<FaMinus />}
               _hover={{ color: "purple.500" }}
-              _focus={{ outline: "none" }}
-            // margin={0}
-
-            />
-          </VStack>
+              _focus={{ outline: "none" }} />
+          </HStack>
           <Stack w={"full"} gap={5} >
             <HStack
               justifyContent={"space-between"}
@@ -117,7 +116,7 @@ function Comments({ comment }) {
                         colorScheme="red"
                         _focus={{ outline: "none" }}
                         _hover={{ opacity: 0.5 }}
-                        onClick={() => openModal(true)}
+                        onClick={() => openModal(true, comment.id)}
                       >
                         Delete
                       </Button>
@@ -151,18 +150,12 @@ function Comments({ comment }) {
               {
                 isEdit ?
                   <>
-                    <Textarea
-                      value={text === "" ? comment.content : text}
-                      onChange={(e) => seText(e.target.value)} >
-                      {comment.content}
-                    </Textarea>
-                    <Button
-                      w={100}
-                      textTransform={"uppercase"}
-                      colorScheme="blue"
-                      onClick={() => updateReply(comment.id)}>
-                      Update
-                    </Button>
+                    <UpdateComment
+                      text={text}
+                      setIsEdit={setIsEdit}
+                      id={comment.id}
+                      updateReply={updateReply}
+                    />
                   </> :
                   TextStyle(comment?.content)
               }

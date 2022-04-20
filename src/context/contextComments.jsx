@@ -11,6 +11,7 @@ export const ProviderComments = ({ children }) => {
     const [comments, setComments] = useState([])
     const [currentUser, setCurrentUser] = useState({})
     const [isOpenModal, setIsOpenModal] = useState(false)
+    const [idDelete, setIdDelete] = useState();
 
 
     useEffect(() => {
@@ -44,12 +45,35 @@ export const ProviderComments = ({ children }) => {
             comments.map(item => item.id == comment.id ? { ...item, replies: [...item.replies, dataReply] } : item)
         setComments(newCommentsAndReplies)
     }
-    const openModal = (isOpen) => {
+    const openModal = (isOpen, id) => {
         setIsOpenModal(isOpen)
+        setIdDelete(id)
     }
     const closeModal = (isOpen) => {
         setIsOpenModal(isOpen)
     }
+    const deleteCommentOrReply = () => {
+        setIsOpenModal(false)
+        let newComments;
+        newComments = comments.filter(item => item.id === idDelete)
+
+        if (newComments.length === 0) {
+
+            newComments = comments.map(item => {
+                if (item.replies.length > 0) {
+                    const newReplies = item.replies.filter(reply => reply.id !== idDelete)
+                    return { ...item, replies: newReplies }
+                }
+                return item
+            })
+            setComments(newComments)
+        }
+        else {
+            newComments = comments.filter(item => item.id !== idDelete)
+            setComments(newComments)
+        }
+    }
+
 
     return (
 
@@ -63,6 +87,7 @@ export const ProviderComments = ({ children }) => {
                 openModal,
                 closeModal,
                 isOpenModal,
+                deleteCommentOrReply
             }
         }>
             {children}

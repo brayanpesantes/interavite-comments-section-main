@@ -10,7 +10,11 @@ function AddComment() {
 
 
   const handleAddComment = () => {
+    if (newComment.length < 1) {
+      return
+    }
     addComment({ comment: newComment });
+    setNewComment('')
   }
   return (
     <CardComment>
@@ -18,7 +22,7 @@ function AddComment() {
         <Avatar size="md" name="John Doe" src={currentUser?.image?.png} />
         <Textarea
           value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
+          onChange={(e) => setNewComment(e.target.value.trim())}
           placeholder='Add a Comment...'></Textarea>
         <Button
           onClick={handleAddComment}

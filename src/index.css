@@ -11,3 +11,8 @@ p {
 textarea {
     caret-color: hsl(238, 40%, 52%);
 }
+
+.css-19mjes8>*:no-button {
+    -webkit-margin-start: 0;
+    margin-inline-start: 0.5rem;
+}
