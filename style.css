@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+:root {
+    /* ### Primary */
+    --Moderateblue: hsl(238, 40%, 52%);
+    --SoftRed: hsl(358, 79%, 66%);
+    --Lightgrayishblue: hsl(239, 57%, 85%);
+    --Palered: hsl(357, 100%, 86%);
+    /* ### Neutral */
+    --Darkblue: hsl(212, 24%, 26%);
+    --GrayishBlue: hsl(211, 10%, 45%);
+    --Lightgray: hsl(223, 19%, 93%);
+    --Verylightgray: hsl(228, 33%, 97%);
+    --White: hsl(0, 0%, 100%);
+}
+
+html {
+    font-family: 'Rubik', sans-serif;
+    overflow-x: hidden;
+}
+
+p {
+    font-size: 16px;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+}
+
+
+/* ? MAIN */
+
+main {
+    width: 100vw;
+    min-height: 100vh;
+    background: var(--Verylightgray);
+}
+
+main .comments {
+    width: 60%;
+    margin: auto;
+    padding: 3.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.comment .comment__buttons {
+    flex-basis: 6%;
+    width: 100%;
+    height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: auto;
+    background: var(--Verylightgray);
+    border-radius: .5rem;
+    padding: .7rem 0;
+}
+
+.comment .comment__buttons .btn__plus {
+    background: transparent;
+}
+
+.comment .comment__buttons .btn__minus {
+    background: transparent;
+}
+
+.bx {
+    color: var(--Lightgrayishblue);
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.bx-plus:hover {
+    color: var(--Moderateblue);
+}
+
+.bx-minus:hover {
+    color: var(--Moderateblue);
+}
+
+.comment .comment__buttons span {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--Moderateblue);
+}
+
+.comments .comment {
+    flex-basis: 10%;
+    background: var(--White);
+    padding: 1.5rem;
+    border-radius: .5rem;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.comment__content {
+    flex-basis: 94%;
+}
+
+.comment__content .comment_content-profile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comment__content .comment_content-profile .perfile__text {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem
+}
+
+.comment__content .comment_content-profile .perfile__text p {
+    font-weight: 700;
+    color: var(--Darkblue);
+}
+
+.comment__content .comment_content-profile .perfile__text span {
+    font-weight: 400;
+    color: var(--GrayishBlue);
+}
+
+.comment__content .comment_content-profile .btn__reply {
+    background: transparent;
+    color: var(--Moderateblue);
+    font-weight: 700;
+}
+
+.comment__content .comment_content-profile .btn__reply:hover {
+    opacity: .5;
+}
+
+.comment .comment__content-text {
+    margin-top: 1rem;
+    font-weight: 400;
+    color: var(--GrayishBlue);
+}
+
+
+/* TODO: COMEMTS */
+
+.replais {
+    width: 80%;
+    margin-left: 20%;
+}
+
+#comments {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.addrepley {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.addrepley textarea {
+    width: 70%;
+    height: 80px;
+    border: none;
+    border: 1px solid var(--Lightgray);
+    border-radius: 10px;
+    text-align-last: auto;
+    padding: 15px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+    caret-color: var(--Moderateblue);
+    color: var(--GrayishBlue);
+}
+
+.addrepley textarea:focus {
+    outline: 1px solid var(--Moderateblue);
+}
+
+.btn-add {
+    background: var(--Moderateblue);
+    color: var(--White);
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border-radius: 7px;
+}
+
+.btn-add:hover {
+    opacity: .5;
+}
+
+.btn:focus {
+    border-color: red;
+}
+
+.avatar img {
+    display: block;
+    height: 40px;
+    width: 40px;
+}
+
+.repley__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+}
+
+.repley__content::before {
+    content: "";
+    width: 2px;
+    height: 100%;
+    background: var(--Lightgray);
+    position: absolute;
+    left: 40px;
+}
