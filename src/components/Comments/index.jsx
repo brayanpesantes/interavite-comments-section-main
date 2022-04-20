@@ -17,7 +17,7 @@ function Comments({ comment }) {
   useScroll()
 
   const updateReply = (id, text) => {
-    console.log(id);
+
     if (comment?.replies?.length < 0) {
       return;
     }
