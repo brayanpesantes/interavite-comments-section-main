@@ -1,5 +1,4 @@
 import { Box, Button, Flex, Heading, HStack, Text } from "@chakra-ui/react"
-import { useEffect } from "react"
 import { useContextComment } from '../../hooks/useContextComment'
 
 function ModalReplyDelete() {

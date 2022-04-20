@@ -49,12 +49,18 @@ function Comments({ comment }) {
           padding={6}
           justifyContent="flex-start"
           alignItems={"flex-start"}
-          h={"full"}>
+          h={"full"}
+          flexDirection={{ base: 'column-reverse', md: 'row' }}
+          position={{ base: 'relative' }}
+          gap={5}
+        >
           <VStack
             bg={"gray.100"}
             borderRadius={10}
-            h={"8rem"}
-
+            h={{ base: "3rem", md: "7rem" }}
+            w={{ base: "auto", md: "3rem" }}
+            flexDirection={{ base: 'row', md: "column" }}
+            alignItems={{ base: 'baseline', md: "center" }}
           >
             <IconButton
               aria-label='plus'
@@ -79,6 +85,7 @@ function Comments({ comment }) {
               icon={<FaMinus />}
               _hover={{ color: "purple.500" }}
               _focus={{ outline: "none" }}
+            // margin={0}
 
             />
           </VStack>
@@ -99,7 +106,11 @@ function Comments({ comment }) {
               <HStack>
                 {
                   comment?.user?.username === currentUser?.username ?
-                    <HStack>
+                    <HStack
+                      pos={{ base: 'absolute', md: 'relative' }}
+                      right={{ base: '0', md: '0' }}
+                      bottom={{ base: 9, md: 0 }}
+                    >
                       <Button
                         variant={"ghost"}
                         leftIcon={<FaTrash />}
@@ -126,7 +137,11 @@ function Comments({ comment }) {
                       variant='ghost'
                       onClick={() => setIsReplay(true)}
                       _hover={{ opacity: 0.5 }}
-                      _focus={{ outline: "none" }}>
+                      _focus={{ outline: "none" }}
+                      pos={{ base: 'absolute', md: 'relative' }}
+                      right={{ base: '0', md: '0' }}
+                      bottom={{ base: 9, md: 0 }}
+                    >
                       Reply
                     </Button>
                 }

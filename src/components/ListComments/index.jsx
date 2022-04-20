@@ -13,7 +13,7 @@ function ListComments() {
 
   return (
     <>
-      <VStack margin="2rem auto" w={"70%"}  >
+      <VStack margin="2rem auto" w={{ base: "95%", lg: '70%' }}  >
         {
           comments?.map((comment, index) => (
             <Fragment key={comment.id}>
