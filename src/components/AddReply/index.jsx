@@ -1,20 +1,19 @@
 import { Avatar, Button, HStack, Textarea } from '@chakra-ui/react'
 import { useState } from 'react'
 import CardComment from '../CardComment'
-import moment from 'moment';
-function AddRepley({ currentUser, comment, data, setData, setIsReplay }) {
+import { useContextComment } from '../../hooks/useContextComment'
+
+function AddReply({ comment, setIsReplay }) {
+
+  const { currentUser, addCommentReply } = useContextComment()
+
   const [text, setText] = useState('@' + comment.user.username + ' ');
 
-  const handleAddRepley = () => {
-    const idReplyNew = Math.round(Math.round(performance.now()) * Math.random(1, 1000));
-
-
-    const dataRepley = { id: idReplyNew, content: text, replyingTo: comment.user.username, score: 0, createdAt: moment().startOf('day').fromNow(), user: currentUser }
-
-    const res = data.map(item => item.id == comment.id ? { ...item, replies: [...item.replies, dataRepley] } : item)
-    setData(res)
+  const handleAddReply = () => {
+    addCommentReply({ comment, text })
     setIsReplay(false)
   }
+
   return (
     <CardComment>
       <HStack padding={5} alignItems="self-start" gap={2.5} >
@@ -25,7 +24,7 @@ function AddRepley({ currentUser, comment, data, setData, setIsReplay }) {
           bg={'blue.600'}
           color={"white"}
           _hover={{ opacity: 0.5 }}
-          onClick={handleAddRepley}
+          onClick={handleAddReply}
         >
           Replay
         </Button>
@@ -34,4 +33,4 @@ function AddRepley({ currentUser, comment, data, setData, setIsReplay }) {
   )
 }
 
-export default AddRepley
+export default AddReply

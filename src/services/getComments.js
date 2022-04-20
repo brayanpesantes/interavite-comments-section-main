@@ -1,6 +1,6 @@
 const URL = '../../data.json'
 
-export const getCommets = async() => {
+export const getComments = async() => {
     const data = await fetch(URL)
     return await data.json();
 }

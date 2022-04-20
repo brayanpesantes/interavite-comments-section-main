@@ -1,16 +1,20 @@
+import { useEffect, useState } from "react"
 import { VStack, Button, IconButton, Text, HStack, Box, Avatar, Stack, Badge, Textarea } from "@chakra-ui/react"
-import CardComment from "../CardComment"
 import { FaPlus, FaReply, FaMinus, FaTrash, FaEdit } from 'react-icons/fa'
-import AddComment from "../AddComment"
-import { useState, useEffect } from "react"
-import AddRepley from "../AddRepley"
+import { useContextComment } from '../../hooks/useContextComment'
+import CardComment from "../CardComment"
+import AddReply from "../AddReply"
+import { useScroll } from '../../hooks/useScroll'
+function Comments({ comment }) {
 
-function Comments({ comment, currentUser, data, setData, isModalModification }) {
   const [isReplay, setIsReplay] = useState(false)
   const [isEdit, setIsEdit] = useState(false)
   const [text, seText] = useState("")
-  const [isModal, setModal] = useState(false)
-  const upadteReply = (id) => {
+  const { currentUser, openModal } = useContextComment()
+
+  useScroll()
+
+  const updateReply = (id) => {
     if (comment?.replies?.length > 0) {
       return;
     }
@@ -20,25 +24,24 @@ function Comments({ comment, currentUser, data, setData, isModalModification }) 
     }
   }
 
-  const TextStyle = (text) => {
-    if (text.includes("@")) {
-      const ArryaText = text.split(" ")
-      const index = ArryaText.findIndex(item => item.includes("@"))
-      const textUser = ArryaText[index]
-      const newtext = text.slice(ArryaText[0].length)
+  const TextStyle = (textComment) => {
+
+    if (textComment?.includes("@")) {
+      const ArrayText = textComment.split(" ")
+      const index = ArrayText.findIndex(item => item.includes("@"))
+      const textUser = ArrayText[index]
+      const newText = textComment.slice(ArrayText[0].length)
 
       return (
-        <Text> <Text color={"blue.500"} as="span" >{textUser}</Text>{newtext} </Text>
+        <Text> <Text color={"blue.500"} as="span" >{textUser}</Text>{newText} </Text>
       )
     }
     else {
-      return <Text>{text}</Text>
+      return <Text>{textComment}</Text>
     }
   }
-  function isModalOpen(is) {
-    setModal(is)
-    isModalModification(is)
-  }
+
+
   return (
     <>
       <CardComment>
@@ -87,23 +90,23 @@ function Comments({ comment, currentUser, data, setData, isModalModification }) 
                 <Avatar
                   size='md'
                   name='Dan Abrams'
-                  src={comment.user.image.png} />
-                <Text color={"gray.700"} fontWeight="500">{comment.user.username}</Text>
-                {comment.user.username === currentUser?.username ? <Badge color={"white"} bg={"blue.500"} textTransform={"lowercase"}>You</Badge> : null}
+                  src={comment?.user?.image?.png} />
+                <Text color={"gray.700"} fontWeight="500">{comment?.user?.username}</Text>
+                {comment?.user?.username === currentUser?.username ? <Badge color={"white"} bg={"blue.500"} textTransform={"lowercase"}>You</Badge> : null}
 
-                <Text color={"gray.300"} fontWeight="500">{comment.createdAt}</Text>
+                <Text color={"gray.300"} fontWeight="500">{comment?.createdAt}</Text>
               </HStack>
               <HStack>
                 {
-                  comment.user.username === currentUser?.username ?
+                  comment?.user?.username === currentUser?.username ?
                     <HStack>
                       <Button
                         variant={"ghost"}
                         leftIcon={<FaTrash />}
                         colorScheme="red"
                         _focus={{ outline: "none" }}
-                        _hover={{ opacity: .5 }}
-                        onClick={(e) => isModalOpen(true)}
+                        _hover={{ opacity: 0.5 }}
+                        onClick={() => openModal(true)}
                       >
                         Delete
                       </Button>
@@ -112,8 +115,9 @@ function Comments({ comment, currentUser, data, setData, isModalModification }) 
                         leftIcon={<FaEdit />}
                         colorScheme="blue"
                         _focus={{ outline: "none" }}
-                        _hover={{ opacity: .5 }}
-                        onClick={() => setIsEdit(true)}>
+                        _hover={{ opacity: 0.5 }}
+                        onClick={() => setIsEdit(true)}
+                      >
                         Edit
                       </Button>
                     </HStack> : <Button
@@ -121,12 +125,11 @@ function Comments({ comment, currentUser, data, setData, isModalModification }) 
                       colorScheme='blue'
                       variant='ghost'
                       onClick={() => setIsReplay(true)}
-                      _hover={{ opacity: .5 }}
+                      _hover={{ opacity: 0.5 }}
                       _focus={{ outline: "none" }}>
                       Reply
                     </Button>
                 }
-
               </HStack>
             </HStack>
             <VStack alignItems={isEdit ? "flex-end" : 'flex-start'}>
@@ -142,21 +145,20 @@ function Comments({ comment, currentUser, data, setData, isModalModification }) 
                       w={100}
                       textTransform={"uppercase"}
                       colorScheme="blue"
-                      onClick={() => upadteReply(comment.id)}>
+                      onClick={() => updateReply(comment.id)}>
                       Update
                     </Button>
                   </> :
-                  TextStyle(comment.content)
+                  TextStyle(comment?.content)
               }
             </VStack>
           </Stack>
         </HStack >
       </CardComment >
       {
-        isReplay && <AddRepley
-          currentUser={currentUser}
+        isReplay && <AddReply
           comment={comment}
-          data={data} setData={setData} setIsReplay={setIsReplay} />
+          setIsReplay={setIsReplay} />
       }
     </>
   )

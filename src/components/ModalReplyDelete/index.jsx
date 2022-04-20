@@ -1,14 +1,18 @@
 import { Box, Button, Flex, Heading, HStack, Text } from "@chakra-ui/react"
+import { useEffect } from "react"
+import { useContextComment } from '../../hooks/useContextComment'
 
-
-function ModalDelete({ cancelModal }) {
+function ModalReplyDelete() {
+  const { closeModal } = useContextComment()
 
   return (
     <Box B pos={"absolute"}
-      top={0} left={0}
+      top={localStorage.getItem("scroll")}
+      left={0}
       w="100vw"
       height={"100vh"}
       bg={"rgba(0,0,0,0.5)"}
+      overflow="hidden"
     >
       <Flex
         w={'full'}
@@ -39,7 +43,8 @@ function ModalDelete({ cancelModal }) {
               w="50%"
               textTransform={"uppercase"}
               _hover={{ bg: "gray.400" }}
-              onClick={() => cancelModal(false)}>
+              onClick={() => closeModal(false)}
+            >
               No, Cancel
             </Button>
             <Button
@@ -58,4 +63,4 @@ function ModalDelete({ cancelModal }) {
   )
 }
 
-export default ModalDelete
+export default ModalReplyDelete

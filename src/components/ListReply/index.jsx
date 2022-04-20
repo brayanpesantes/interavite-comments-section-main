@@ -1,8 +1,7 @@
 import { VStack } from "@chakra-ui/react"
 import Comments from "../Comments";
-
-function ListRepley({ repleys, curretUser }) {
-
+import { useComments } from '../../hooks/useComments'
+function ListReply({ replies }) {
   return (
     <VStack
       w={"full"}
@@ -21,15 +20,14 @@ function ListRepley({ repleys, curretUser }) {
     >
       <VStack w={"90%"} >
         {
-          repleys.map(repley => (
-            <Comments comment={repley} key={repley.id} currentUser={curretUser} />
+          replies.map(reply => (
+            <Comments comment={reply} key={reply.id} />
           ))
         }
-
 
       </VStack>
     </VStack>
   )
 }
 
-export default ListRepley
+export default ListReply
